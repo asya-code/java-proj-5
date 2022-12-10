@@ -12,55 +12,28 @@ it would return 8: missingNumber({2, 1, 4, 3, 6, 5, 7, 10, 9}, 10) ⇒ 8
 If there is no missing number, the function should return 0.
  */
 
-import java.util.*;
+import java.util.HashSet;
+import java.util.Set;
 
 public class MissingNumber {
     public static void main(String[] args){
-        int[] testList = {4, 0, 1, 2, 5, 3};
-        int result1 = findMissingNum1(testList);
-        int result2 = findMissingNum2(testList);
+        int[] testList = {4, 1, 2, 5, 3};
+        int result1 = findMissingNum1(testList, 5);
+        //int result2 = findMissingNum2(testList);
 
         System.out.println("findMissingNum1: " + result1);
-        System.out.println("findMissingNum2: " + result2);
+        //System.out.println("findMissingNum2: " + result2);
 
     }
-    public static int findMissingNum1(int[] nums) {
-        /*
-        Time complexity : O(nlgn)
-        Space complexity : O(1) or O(n)
-         */
-        Arrays.sort(nums);
-        if (nums[0] != 0) {
-            return 0;
-        }
-        var size = nums.length;
-        if (nums[size - 1] != size) {
-            return nums.length;
-        }
-
-        for (var i = 0; i < size; i++) {
-            var temp = nums[i] + 1;
-            if (temp != nums[i+1]){
-                return temp;
-            }
-        }
-        return -1;
-    }
-
-    public static int findMissingNum2(int[] nums) {
-         /*
-        Time complexity : O(n)
-        Space complexity : O(n)
-         */
+    public static int findMissingNum1(int[] nums, int maxNum){
         Set<Integer> numSet = new HashSet<Integer>();
         for (int num : nums) numSet.add(num);
 
-        int temp = nums.length + 1;
-        for (int number = 0; number < temp; number++) {
+        for (int number = 1; number < maxNum; number++) {
             if (!numSet.contains(number)) {
                 return number;
             }
         }
-        return -1;
+        return 0;
     }
 }
